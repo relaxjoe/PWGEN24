@@ -80,21 +80,15 @@ function generatePassword() {
 
 // Function to copy text to clipboard
 function copyToClipboard(element) {
-  // Create a range and select the text
-  var range = document.createRange();
-  range.selectNodeContents(element);
-
-  // Remove any existing selections
-  window.getSelection().removeAllRanges();
-
-  // Add the new range to the selection
-  window.getSelection().addRange(range);
-
-  // Remove the selection
-  window.getSelection().removeAllRanges();
-
-  // Alert the user that the text has been copied (optional)
-  alert("Password copied to clipboard!");
+  // Use the modern Clipboard API
+  navigator.clipboard.writeText(element.value)
+    .then(function() {
+      // Success message (optional)
+      alert("Password copied to clipboard!");
+    })
+    .catch(function(err) {
+      console.error('Unable to copy to clipboard', err);
+    });
 }
 
 // Add event listener to generate button
